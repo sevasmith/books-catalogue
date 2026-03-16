@@ -1,6 +1,6 @@
-import heartIcon from '../assets/heart.svg';
+import { createHeartIcon } from './create-heart-icon';
 
-export const createBookCard = (book) => {
+export const createBookCard = (book, onLike) => {
   const card = document.createElement('div');
   card.classList.add('book-card');
 
@@ -17,11 +17,14 @@ export const createBookCard = (book) => {
   }
 
   const likeButton = document.createElement('div');
-  likeButton.classList.add('like-button');
+  likeButton.classList.add('book-like-button');
+  likeButton.addEventListener('click', () => {
+    likeIcon.classList.toggle('liked');
+    onLike(book);
+  });
 
-  const likeIcon = document.createElement('img');
-  likeIcon.classList.add('like-icon');
-  likeIcon.src = heartIcon;
+  const likeIcon = createHeartIcon();
+  likeIcon.classList.add('book-like-icon');
 
   const textContainer = document.createElement('div');
   textContainer.classList.add('book-text-container');
@@ -31,14 +34,14 @@ export const createBookCard = (book) => {
   title.classList.add('book-title');
 
   const author = document.createElement('p');
-  author.textContent = `${book.author_name ? book.author_name.splice(0, 2).join(', ') : 'Unknown Author'}`;
+  author.textContent = `${book.author_name ? book.author_name.slice(0, 2).join(', ') : 'Unknown Author'}`;
   author.classList.add('book-author');
 
   const year = document.createElement('p');
   year.textContent = `${book.first_publish_year || 'Unknown Year'}`;
   year.classList.add('book-year');
 
-  likeButton.append(likeIcon);
+  likeButton.appendChild(likeIcon);
   coverContainer.appendChild(cover);
   textContainer.append(title, author, year);
   card.append(coverContainer, textContainer, likeButton);

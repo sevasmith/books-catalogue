@@ -1,4 +1,4 @@
-import heartIcon from '../assets/heart.svg';
+import { createHeartIcon } from '../utils/create-heart-icon';
 
 export const createMain = (onSubmit) => {
   const main = document.createElement('main');
@@ -46,35 +46,41 @@ export const createMain = (onSubmit) => {
   const booksContainer = document.createElement('div');
   booksContainer.classList.add('books-container');
 
+  const favoritesSection = document.createElement('div');
+  favoritesSection.classList.add('favorites-section');
+
   const favoritesContainer = document.createElement('div');
   favoritesContainer.classList.add('favorites-container');
 
   const favoritesHeader = document.createElement('div');
   favoritesHeader.classList.add('favorites-header');
 
-  const favoritesIcon = document.createElement('img');
-  favoritesIcon.classList.add('favorites-icon');
-  favoritesIcon.src = heartIcon;
+  const favoritesHeaderIconContainer = document.createElement('div');
+  favoritesHeaderIconContainer.classList.add('favorites-header-icon-container');
 
-  const favoritesText = document.createElement('div');
-  favoritesText.classList.add('favorites-text');
+  const favoritesHeaderIcon = createHeartIcon();
+  favoritesHeaderIcon.classList.add('favorites-header-icon');
 
-  const favoritesTitle = document.createElement('h3');
-  favoritesTitle.textContent = 'Favorites';
+  const favoritesHeaderText = document.createElement('div');
+  favoritesHeaderText.classList.add('favorites-header-text');
 
-  const favoritesDescription = document.createElement('p');
-  favoritesDescription.classList.add('favorites-description');
-  favoritesDescription.textContent = '0 books saved';
+  const favoritesHeaderTitle = document.createElement('h3');
+  favoritesHeaderTitle.textContent = 'Favorites';
 
-  favoritesText.append(favoritesTitle, favoritesDescription);
-  favoritesHeader.append(favoritesIcon, favoritesText);
-  favoritesContainer.append(favoritesHeader);
+  const favoritesHeaderDescription = document.createElement('p');
+  favoritesHeaderDescription.classList.add('favorites-header-description');
+  favoritesHeaderDescription.textContent = '0 books saved';
+
+  favoritesHeaderText.append(favoritesHeaderTitle, favoritesHeaderDescription);
+  favoritesHeaderIconContainer.appendChild(favoritesHeaderIcon);
+  favoritesHeader.append(favoritesHeaderIconContainer, favoritesHeaderText);
+  favoritesSection.append(favoritesHeader, favoritesContainer);
 
   textContainer.append(title, description);
   searchForm.append(searchInput, searchButton);
   topContainer.append(textContainer, searchForm);
-  bottomContainer.append(booksContainer, favoritesContainer);
+  bottomContainer.append(booksContainer, favoritesSection);
   main.append(topContainer, bottomContainer);
 
-  return { main, booksContainer };
+  return { main, booksContainer, favoritesContainer };
 };
