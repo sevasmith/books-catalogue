@@ -1,4 +1,6 @@
-export const createMain = (onSearch) => {
+import heartIcon from '../assets/heart.svg';
+
+export const createMain = (onSubmit) => {
   const main = document.createElement('main');
   main.classList.add('main');
 
@@ -17,8 +19,8 @@ export const createMain = (onSearch) => {
   description.textContent =
     'Search millions of books, build your library, and never loose track of what to read next';
 
-  const searchContainer = document.createElement('div');
-  searchContainer.classList.add('main-search-container');
+  const searchForm = document.createElement('form');
+  searchForm.classList.add('search-form');
 
   const searchInput = document.createElement('input');
   searchInput.type = 'text';
@@ -26,12 +28,15 @@ export const createMain = (onSearch) => {
   searchInput.classList.add('search-input');
 
   const searchButton = document.createElement('button');
+  searchButton.type = 'submit';
   searchButton.textContent = 'Search';
   searchButton.classList.add('search-button');
-  searchButton.addEventListener('click', () => {
+
+  searchForm.addEventListener('submit', (event) => {
+    event.preventDefault();
     const query = searchInput.value.trim();
     if (query) {
-      onSearch(query);
+      onSubmit(query);
     }
   });
 
@@ -44,9 +49,30 @@ export const createMain = (onSearch) => {
   const favoritesContainer = document.createElement('div');
   favoritesContainer.classList.add('favorites-container');
 
+  const favoritesHeader = document.createElement('div');
+  favoritesHeader.classList.add('favorites-header');
+
+  const favoritesIcon = document.createElement('img');
+  favoritesIcon.classList.add('favorites-icon');
+  favoritesIcon.src = heartIcon;
+
+  const favoritesText = document.createElement('div');
+  favoritesText.classList.add('favorites-text');
+
+  const favoritesTitle = document.createElement('h3');
+  favoritesTitle.textContent = 'Favorites';
+
+  const favoritesDescription = document.createElement('p');
+  favoritesDescription.classList.add('favorites-description');
+  favoritesDescription.textContent = '0 books saved';
+
+  favoritesText.append(favoritesTitle, favoritesDescription);
+  favoritesHeader.append(favoritesIcon, favoritesText);
+  favoritesContainer.append(favoritesHeader);
+
   textContainer.append(title, description);
-  searchContainer.append(searchInput, searchButton);
-  topContainer.append(textContainer, searchContainer);
+  searchForm.append(searchInput, searchButton);
+  topContainer.append(textContainer, searchForm);
   bottomContainer.append(booksContainer, favoritesContainer);
   main.append(topContainer, bottomContainer);
 
