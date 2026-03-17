@@ -10,7 +10,7 @@ Task description: [Books Catalogue](https://drive.google.com/file/d/1swszcMU9rF_
 
 1. Clone the repository:
 
-git clone https://github.com/sevasmith/books-catalogue/tree/main
+git clone https://github.com/sevasmith/books-catalogue.git
 
 2. Go to the project folder:
 
