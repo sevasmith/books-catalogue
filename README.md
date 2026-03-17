@@ -39,11 +39,11 @@ npm run dev
 
 ## Features
 
-Search books by title or author
-Add/remove books from favorites
-Favorites are saved in localStorage
-Loading, error, and empty states handling
-Smooth rendering (images load before display)
+- Search books by title or author
+- Add/remove books from favorites
+- Favorites are saved in localStorage
+- Loading, error, and empty states handling
+- Smooth rendering (images load before display)
 
 ## Deploy
 
