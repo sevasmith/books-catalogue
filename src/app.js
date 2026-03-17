@@ -2,17 +2,17 @@ import { fetchBooks } from './api/fetch-books';
 import { createHeader } from './components/create-header';
 import { createMain } from './components/create-main';
 import { createFooter } from './components/create-footer';
-import { createBookCard } from './utils/create-book-card';
-import { createFavoriteCard } from './utils/create-favorite-card';
+import { createBookCard } from './components/create-book-card';
+import { createFavoriteCard } from './components/create-favorite-card';
 import { defaultBooks } from './storage/defaultBooks';
+import { renderCards } from './utils/render-cards';
+import { findFavorite, getFavorites, toggleFavorite } from './utils/favorites';
 import './style.css';
 
-const app = () => {
+const app = async () => {
   const root = document.getElementById('root');
 
-  let favorites = localStorage.getItem('favorites')
-    ? JSON.parse(localStorage.getItem('favorites'))
-    : [];
+  let favorites = getFavorites();
 
   const onSearch = async (query) => {
     if (!query) {
@@ -29,30 +29,11 @@ const app = () => {
         return;
       }
 
-      const fragment = document.createDocumentFragment();
-      const images = [];
-
-      data.docs.forEach((book) => {
-        const isFavorite = favorites.some((fav) => fav.key === book.key);
-        const bookCard = createBookCard(book, onLike, isFavorite);
-        bookCard.dataset.key = book.key;
-        fragment.appendChild(bookCard);
-
-        const img = bookCard.querySelector('img');
-        if (img) images.push(img);
-      });
-
-      await Promise.all(
-        images.map((img) => {
-          return new Promise((resolve) => {
-            if (img.complete) resolve();
-            else img.onload = img.onerror = resolve;
-          });
-        })
+      await renderCards(
+        data.docs,
+        (book) => createBookCard(book, onLike, findFavorite(book, favorites)),
+        booksContainer
       );
-
-      booksContainer.innerHTML = '';
-      booksContainer.appendChild(fragment);
 
       setStatus('idle');
     } catch (error) {
@@ -62,13 +43,7 @@ const app = () => {
   };
 
   const onLike = (book) => {
-    if (favorites.some((fav) => fav.key === book.key)) {
-      favorites = favorites.filter((fav) => fav.key !== book.key);
-    } else {
-      favorites.push(book);
-    }
-
-    localStorage.setItem('favorites', JSON.stringify(favorites));
+    toggleFavorite(book, favorites);
     updateFavorites();
     updateBookCard(book);
   };
@@ -94,40 +69,20 @@ const app = () => {
     if (bookCard) {
       const likeIcon = bookCard.querySelector('.book-like-icon');
       if (likeIcon) {
-        likeIcon.classList.toggle(
-          'liked',
-          favorites.some((fav) => fav.key === book.key)
-        );
+        likeIcon.classList.toggle('liked', findFavorite(book, favorites));
       }
     }
   };
 
   const updateFavorites = async () => {
-    const fragment = document.createDocumentFragment();
-    const images = [];
-
-    favorites.forEach((favorite) => {
-      const favoriteCard = createFavoriteCard(favorite, onLike);
-      favoriteCard.dataset.key = favorite.key;
-      fragment.append(favoriteCard);
-
-      const img = favoriteCard.querySelector('img');
-      if (img) images.push(img);
-    });
-
-    await Promise.all(
-      images.map((img) => {
-        return new Promise((resolve) => {
-          if (img.complete) resolve();
-          else img.onload = img.onerror = resolve;
-        });
-      })
+    await renderCards(
+      favorites,
+      (favorite) => createFavoriteCard(favorite, onLike),
+      favoritesContainer
     );
 
-    favoritesContainer.innerHTML = '';
     const favoritesCount = favorites.length;
     favoritesHeaderDescription.textContent = `${favoritesCount} book${favoritesCount !== 1 ? 's' : ''} saved`;
-    favoritesContainer.appendChild(fragment);
   };
 
   const header = createHeader();
@@ -140,17 +95,18 @@ const app = () => {
   } = createMain(onSearch);
   const footer = createFooter();
 
-  defaultBooks.forEach((book) => {
-    const isFavorite = favorites.some((fav) => fav.key === book.key);
-    const bookCard = createBookCard(book, onLike, isFavorite);
-    bookCard.dataset.key = book.key;
-    booksContainer.appendChild(bookCard);
-  });
+  setStatus('loading');
+
+  root.append(header, main, footer);
+
+  await renderCards(
+    defaultBooks,
+    (book) => createBookCard(book, onLike, findFavorite(book, favorites)),
+    booksContainer
+  );
 
   updateFavorites();
   setStatus('idle');
-
-  root.append(header, main, footer);
 };
 
 app();
