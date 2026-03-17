@@ -1,6 +1,6 @@
 import { createHeartIcon } from './create-heart-icon';
 
-export const createBookCard = (book, onLike) => {
+export const createBookCard = (book, onLike, isFavorite) => {
   const card = document.createElement('div');
   card.classList.add('book-card');
 
@@ -9,7 +9,7 @@ export const createBookCard = (book, onLike) => {
 
   const cover = document.createElement('img');
   if (book.cover_i) {
-    cover.src = `https://covers.openlibrary.org/b/id/${book.cover_i}-L.jpg`;
+    cover.src = `https://covers.openlibrary.org/b/id/${book.cover_i}.jpg`;
     cover.alt = `${book.title} cover`;
   } else {
     cover.src = 'https://placehold.co/150x200?text=No+cover';
@@ -19,12 +19,15 @@ export const createBookCard = (book, onLike) => {
   const likeButton = document.createElement('div');
   likeButton.classList.add('book-like-button');
   likeButton.addEventListener('click', () => {
-    likeIcon.classList.toggle('liked');
     onLike(book);
   });
 
   const likeIcon = createHeartIcon();
   likeIcon.classList.add('book-like-icon');
+
+  if (isFavorite) {
+    likeIcon.classList.add('liked');
+  }
 
   const textContainer = document.createElement('div');
   textContainer.classList.add('book-text-container');

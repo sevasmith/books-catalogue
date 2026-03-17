@@ -1,6 +1,6 @@
 import { createHeartIcon } from './create-heart-icon';
 
-export const createFavoriteCard = (favorite) => {
+export const createFavoriteCard = (favorite, onLike) => {
   const card = document.createElement('div');
   card.classList.add('favorite-card');
 
@@ -9,7 +9,7 @@ export const createFavoriteCard = (favorite) => {
 
   const cover = document.createElement('img');
   if (favorite.cover_i) {
-    cover.src = `https://covers.openlibrary.org/b/id/${favorite.cover_i}-L.jpg`;
+    cover.src = `https://covers.openlibrary.org/b/id/${favorite.cover_i}.jpg`;
     cover.alt = `${favorite.title} cover`;
   } else {
     cover.src = 'https://placehold.co/150x200?text=No+cover';
@@ -18,7 +18,7 @@ export const createFavoriteCard = (favorite) => {
 
   const likeButton = document.createElement('div');
   likeButton.classList.add('favorite-like-button');
-  likeButton.addEventListener('click', () => {});
+  likeButton.addEventListener('click', () => onLike(favorite));
 
   const likeIcon = createHeartIcon();
   likeIcon.classList.add('favorite-like-icon', 'liked');

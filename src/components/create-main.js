@@ -35,10 +35,14 @@ export const createMain = (onSubmit) => {
   searchForm.addEventListener('submit', (event) => {
     event.preventDefault();
     const query = searchInput.value.trim();
-    if (query) {
-      onSubmit(query);
-    }
+    onSubmit(query);
   });
+
+  const statusWindow = document.createElement('div');
+  statusWindow.classList.add('status-window');
+
+  const statusMessage = document.createElement('p');
+  statusMessage.classList.add('status-message');
 
   const bottomContainer = document.createElement('div');
   bottomContainer.classList.add('main-bottom-container');
@@ -77,10 +81,17 @@ export const createMain = (onSubmit) => {
   favoritesSection.append(favoritesHeader, favoritesContainer);
 
   textContainer.append(title, description);
-  searchForm.append(searchInput, searchButton);
+  searchForm.append(searchInput, searchButton, statusWindow);
+  statusWindow.appendChild(statusMessage);
   topContainer.append(textContainer, searchForm);
   bottomContainer.append(booksContainer, favoritesSection);
   main.append(topContainer, bottomContainer);
 
-  return { main, booksContainer, favoritesContainer };
+  return {
+    main,
+    booksContainer,
+    favoritesContainer,
+    favoritesHeaderDescription,
+    statusMessage,
+  };
 };
