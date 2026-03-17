@@ -92,14 +92,12 @@ const app = () => {
   const updateBookCard = (book) => {
     const bookCard = booksContainer.querySelector(`[data-key="${book.key}"]`);
     if (bookCard) {
-      console.log(1);
       const likeIcon = bookCard.querySelector('.book-like-icon');
       if (likeIcon) {
         likeIcon.classList.toggle(
           'liked',
           favorites.some((fav) => fav.key === book.key)
         );
-        console.log(favorites.some((fav) => fav.key === book.key));
       }
     }
   };
