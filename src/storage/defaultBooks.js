@@ -1,0 +1,73 @@
+export const defaultBooks = [
+  {
+    author_name: ['Venedikt Erofeev'],
+    cover_i: 595157,
+    first_publish_year: 1976,
+    key: '/works/OL865418W',
+    title: 'Moskva-Petushki',
+  },
+  {
+    author_name: ['F. Scott Fitzgerald'],
+    cover_i: 10590366,
+    first_publish_year: 1920,
+    key: '/works/OL468431W',
+    title: 'The Great Gatsby',
+  },
+  {
+    author_name: ['Edgar Allan Poe'],
+    cover_i: 11709016,
+    first_publish_year: 1914,
+    key: '/works/OL41068W',
+    title: 'The Black Cat',
+  },
+  {
+    author_name: ['William Shakespeare'],
+    cover_i: 7901303,
+    first_publish_year: 1656,
+    key: '/works/OL362702W',
+    title: 'Julius Caesar',
+  },
+  {
+    author_name: ['Marcel Proust'],
+    cover_i: 12588755,
+    first_publish_year: 1920,
+    key: '/works/OL27213717W',
+    title: 'Le Côté de Guermantes',
+  },
+
+  {
+    author_name: ['Charles Dickens'],
+    cover_i: 13301713,
+    first_publish_year: 1800,
+    key: '/works/OL8193465W',
+    title: 'A Tale of Two Cities',
+  },
+  {
+    author_name: ['Emily Dickinson'],
+    cover_i: 8236924,
+    first_publish_year: 1890,
+    key: '/works/OL51381W',
+    title: 'The Poems of Emily Dickinson Volume II',
+  },
+  {
+    author_name: ['Virginia Woolf'],
+    cover_i: 6559057,
+    first_publish_year: 1929,
+    key: '/works/OL39379W',
+    title: "A Room of One's Own",
+  },
+  {
+    author_name: ['William Faulkner'],
+    cover_i: 8292249,
+    first_publish_year: 1931,
+    key: '/works/OL82931W',
+    title: 'Light in August',
+  },
+  {
+    author_name: ['Arthur Conan Doyle'],
+    cover_i: 8063264,
+    first_publish_year: 1900,
+    key: '/works/OL262454W',
+    title: 'The Hound of the Baskervilles',
+  },
+];
