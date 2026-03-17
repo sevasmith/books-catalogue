@@ -16,6 +16,8 @@ export const createFooter = () => {
   link.classList.add('footer-link');
   link.textContent = 'Open Library';
   link.href = 'https://openlibrary.org/';
+  link.target = '_blank';
+  link.rel = 'noopener noreferrer';
 
   content.append(text, link);
   footerWrapper.append(content);
