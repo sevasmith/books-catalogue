@@ -26,15 +26,16 @@ npm run dev
 
 ## Project Structure
 
-├── src/
-│ ├── api/ # Functions for working with external APIs (fetch books)
-│ ├── assets/ # Icons
-│ ├── components/ # UI components (header, main, footer)
-│ ├── storage/ # Static data (default books)
-│ ├── utils/ # Helper functions (createBookCard, createFavoriteCard)
-│ ├── app.js # Main application logic
-│ └── styles.css # Styles for the application
-└── index.html # Entry point
+- src/
+  - api/ — functions for working with external APIs (fetch books)
+  - assets/ — icons
+  - components/ — UI components (header, main, footer)
+  - storage/ — static data (default books)
+  - utils/ — helper functions (createBookCard, createFavoriteCard)
+  - app.js — main application logic
+  - styles.css — application styles
+
+- index.html — entry point
 
 ## Features
 
@@ -45,3 +46,5 @@ Loading, error, and empty states handling
 Smooth rendering (images load before display)
 
 ## Deploy
+
+https://sevasmith-books-catalogue.netlify.app/
