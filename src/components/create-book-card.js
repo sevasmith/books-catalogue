@@ -1,4 +1,4 @@
-import { createHeartIcon } from './create-heart-icon';
+import { createHeartIcon } from '../utils/create-heart-icon';
 
 export const createBookCard = (book, onLike, isFavorite) => {
   const card = document.createElement('div');
