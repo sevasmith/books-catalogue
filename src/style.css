@@ -92,7 +92,7 @@ input {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: start;
   flex: 1;
   gap: 3rem;
   padding: 2rem 10rem;
@@ -142,6 +142,11 @@ input {
   border: none;
   border-radius: 0.75rem;
   cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.search-button:hover {
+  opacity: 0.9;
 }
 
 .status-window {

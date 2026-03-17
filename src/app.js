@@ -95,6 +95,10 @@ const app = async () => {
   } = createMain(onSearch);
   const footer = createFooter();
 
+  setStatus('loading');
+
+  root.append(header, main, footer);
+
   await renderCards(
     defaultBooks,
     (book) => createBookCard(book, onLike, findFavorite(book, favorites)),
@@ -103,8 +107,6 @@ const app = async () => {
 
   updateFavorites();
   setStatus('idle');
-
-  root.append(header, main, footer);
 };
 
 app();
